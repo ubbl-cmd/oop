@@ -1,12 +1,6 @@
 #include "Player.h"
 
-int Player::getHealth() const {
-    return health;
-}
 
-void Player::setHealth(int new_health) {
-    Player::health = new_health;
-}
 
 int Player::getLuck() const {
     return luck;
@@ -30,4 +24,12 @@ int Player::getNumberOfMoves() const {
 
 void Player::setNumberOfMoves(int new_numberOfMoves) {
     numberOfMoves = new_numberOfMoves;
+}
+
+bool Player::isHasKey() const {
+    return hasKey;
+}
+
+void Player::setHasKey(bool new_hasKey) {
+    Player::hasKey = new_hasKey;
 }

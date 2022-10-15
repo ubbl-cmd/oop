@@ -3,6 +3,8 @@
 
 #include "Cell.h"
 #include "Move.h"
+#include "GameStatus.h"
+#include "Entities/Player/Player.h"
 
 class Field {
 public:
@@ -14,7 +16,11 @@ public:
         return cells[i][j];
     }
 
-    void makeMove(Move &move, Entity &entity, bool top, bool left, bool isEventTrigger);
+    Cell** getField() {
+        return cells;
+    }
+
+    void makeMove(Move &move, Player &entity, bool top, bool left, bool isEventTrigger);
 
     explicit Field(int height = 5, int width = 8):width(width),height(height) {
         cells = new Cell*[height];
@@ -29,11 +35,11 @@ public:
         delete cells;
     }
 
-    Field(Field &other);
-    Field& operator=(const Field &other);
-
-    Field(Field &&source);
-    Field& operator=(const Field &&other);
+//    Field(Field &other);
+//    Field& operator=(const Field &other);
+//
+//    Field(Field &&source);
+//    Field& operator=(const Field &&other);
 
 
 private:
@@ -41,7 +47,7 @@ private:
     int width;
     Cell **cells;
 
-    bool isMoveValid(Move &move, Entity &entity, bool top, bool left);
+    bool isMoveValid(Move &move, Player &entity, bool top, bool left);
 };
 
 

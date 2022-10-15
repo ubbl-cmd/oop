@@ -10,7 +10,7 @@ std::string FieldView::toString(Field &field, Player &player) {
                 field_string += "P";
                 continue;
             }
-            field_string += "O";
+            field_string += cellView->toString(field.getCell(i,j));
 
         }
         field_string += "\n";

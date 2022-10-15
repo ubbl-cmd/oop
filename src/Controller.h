@@ -3,18 +3,23 @@
 
 #include "CommandReader.h"
 #include "FieldWriter.h"
+#include "GameStatus.h"
 
 
 class Controller {
 public:
-    void start();
+    GameStatus start();
 
     explicit Controller() = default;
 
+    virtual ~Controller();
+
 private:
     Player player = Player(0, 0, 5, 100, new Move[3]{Move(1, 1), Move(0, 1), Move(1, 0)}, 3);
-    Field *field;
+    Field *field = nullptr;
+    void freeEvents();
 
+    GameStatus gameStatus{InProgress};
     CommandReader commandReader = CommandReader();
     FieldWriter fieldWriter = FieldWriter(player);
 

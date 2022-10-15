@@ -2,7 +2,6 @@
 #define CELL_H
 
 #include "Events/Event.h"
-#include "Entities/Entity.h"
 
 class Cell {
 public:

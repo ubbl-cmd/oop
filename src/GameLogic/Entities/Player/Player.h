@@ -3,10 +3,28 @@
 
 #include "Field/Move.h"
 
-class Player:public Entity {
+class Player {
 public:
-    int getHealth() const;
-    void setHealth(int new_health);
+    int getVerticalPosition() const {
+        return verticalPosition;
+    }
+    void setVerticalPosition(int new_verticalPosition) {
+        verticalPosition = new_verticalPosition;
+    }
+
+    int getHorizontalPosition() const {
+        return horizontalPosition;
+    }
+    void setHorizontalPosition(int new_horizontalPosition) {
+        horizontalPosition = new_horizontalPosition;
+    }
+
+    int getHealth() const {
+        return health;
+    }
+    void setHealth(int new_health) {
+        health = new_health;
+    }
 
     int getLuck() const;
     void setLuck(int new_luck);
@@ -17,14 +35,21 @@ public:
     int getNumberOfMoves() const;
     void setNumberOfMoves(int new_numberOfMoves);
 
-    explicit Player(int verticalPosition, int horizontalPosition, int initial_health, int initial_luck, Move *moves, int number_of_moves):
-            Entity(verticalPosition, horizontalPosition), health(initial_health), luck(initial_luck), moves(moves), numberOfMoves(number_of_moves) {}
+    bool isHasKey() const;
+    void setHasKey(bool new_hasKey);
+
+    explicit Player(int verticalPosition, int horizontalPosition, int initial_health, int initial_luck, Move *moves, int number_of_moves, bool hasKey = false):
+            verticalPosition(verticalPosition), horizontalPosition(horizontalPosition), health(initial_health), luck(initial_luck), moves(moves), numberOfMoves(number_of_moves), hasKey(hasKey) {}
 private:
-    int health;
     int luck;
+
+    int verticalPosition;
+    int horizontalPosition;
+    int health{};
 
     Move *moves;
     int numberOfMoves;
+    bool hasKey;
 };
 
 

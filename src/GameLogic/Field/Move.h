@@ -2,8 +2,6 @@
 #define MOVE_H
 
 
-#include "Entities/Entity.h"
-
 class Move {
 public:
     int getCellsVertical() const;

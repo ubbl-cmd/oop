@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Cell.h"
 
 
@@ -14,6 +15,7 @@ Event *Cell::getEvent() {
 }
 
 void Cell::setEvent(Event *new_event) {
+    delete event;
     event = new_event;
 }
 

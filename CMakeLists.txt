@@ -12,7 +12,6 @@ include_directories(src/IO/Views)
 add_executable(oop
         src/GameLogic/Entities/Player/Player.cpp
         src/GameLogic/Entities/Player/Player.h
-        src/GameLogic/Entities/Entity.h
         src/GameLogic/Events/Event.h
         src/GameLogic/Field/Cell.cpp
         src/GameLogic/Field/Cell.h
@@ -30,4 +29,4 @@ add_executable(oop
         src/IO/CommandReader.h
         src/Controller.cpp
         src/Controller.h
-        src/Game.cpp)
+        src/Game.cpp src/GameLogic/Events/TrapEvent.cpp src/GameLogic/Events/TrapEvent.h src/GameLogic/Events/AbstractMapEvent.cpp src/GameLogic/Events/AbstractMapEvent.h src/GameLogic/Events/PassMapEvent.cpp src/GameLogic/Events/PassMapEvent.h src/GameLogic/Events/AbstractPlayerEvent.cpp src/GameLogic/Events/AbstractPlayerEvent.h src/GameLogic/Events/KeyEvent.cpp src/GameLogic/Events/KeyEvent.h src/GameLogic/Events/ExitEvent.cpp src/GameLogic/Events/ExitEvent.h src/GameLogic/GameStatus.h src/GameLogic/Events/AllKeysEvent.cpp src/GameLogic/Events/AllKeysEvent.h)
