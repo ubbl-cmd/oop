@@ -2,8 +2,9 @@
 #define CELL_H
 
 #include "Events/Event.h"
+#include "Obsersers/AbstractObservable.h"
 
-class Cell {
+class Cell: public AbstractObservable {
 public:
     explicit Cell(bool passable = true, Event * event = nullptr):passable(passable),event(event) {};
 

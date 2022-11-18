@@ -2,81 +2,57 @@
 #include "Field.h"
 
 int Field::getHeight() const {
-    return height;
+	return height;
 }
 
 int Field::getWidth() const {
-    return width;
+	return width;
 }
 
 void Field::makeMove(Move &move, Player &entity, bool top, bool left, bool isEventTrigger) {
-    int new_vertical_position = (entity.getVerticalPosition() - move.getCellsVertical() * top + move.getCellsVertical() * !top + height) % height;
-    int new_horizontal_position = (entity.getHorizontalPosition() - move.getCellsHorizontal() * left + move.getCellsHorizontal() * !left + width) % width;
+	int new_vertical_position = (entity.getVerticalPosition() - move.getCellsVertical() * top + move.getCellsVertical() * !top + height) % height;
+	int new_horizontal_position = (entity.getHorizontalPosition() - move.getCellsHorizontal() * left + move.getCellsHorizontal() * !left + width) % width;
 
-    if (isMoveValid(move, entity, top, left)) {
-        if (isEventTrigger and cells[new_vertical_position][new_horizontal_position].getEvent() != nullptr) {
-            cells[new_vertical_position][new_horizontal_position].startEvent();
-        }
-        entity.setVerticalPosition(new_vertical_position);
-        entity.setHorizontalPosition(new_horizontal_position);
-
-    }
+	if (isMoveValid(move, entity, top, left)) {
+		if (isEventTrigger and cells[new_vertical_position][new_horizontal_position].getEvent() != nullptr) {
+			cells[new_vertical_position][new_horizontal_position].startEvent();
+		}
+		entity.setVerticalPosition(new_vertical_position);
+		entity.setHorizontalPosition(new_horizontal_position);
+	} else {
+		std::string s("Player trying to move to unpassable cell");
+		Message m(s, LogLevel::Critical);
+		this->notifyObserver(m);
+	}
 }
 
 bool Field::isMoveValid(Move &move, Player &entity, bool top, bool left) {
-    int new_vertical_position = (entity.getVerticalPosition() + move.getCellsVertical() * (-1 * top) + height) % height;
-    int new_horizontal_position = (entity.getHorizontalPosition() + move.getCellsHorizontal() * (-1 * left) + width) % width;
-    return cells[new_vertical_position][new_horizontal_position].isPassable();
+	int new_vertical_position = (entity.getVerticalPosition() + move.getCellsVertical() * (-1 * top) + height) % height;
+	int new_horizontal_position = (entity.getHorizontalPosition() + move.getCellsHorizontal() * (-1 * left) + width) % width;
+	return cells[new_vertical_position][new_horizontal_position].isPassable();
 }
 
-//Field::Field(Field &other) {
-//    height = other.height;
-//    width = other.width;
-//    cells = new Cell*[height];
-//    for (int i = 0; i < height; ++i) {
-//        cells[i] = new Cell[width];
-//        for (int j = 0; j < width; ++j) {
-//            cells[i][j].setPassable(other.cells[i][j].isPassable());
-//            cells[i][j].setEvent(other.cells[i][j].getEvent());
-//        }
-//    }
-//}
-//
-//Field& Field::operator=(const Field &other) {
-//    height = other.height;
-//    width = other.width;
-//    cells = new Cell*[height];
-//    for (int i = 0; i < height; ++i) {
-//        cells[i] = new Cell[width];
-//        for (int j = 0; j < width; ++j) {
-//            cells[i][j].setPassable(other.cells[i][j].isPassable());
-//            cells[i][j].setEvent(other.cells[i][j].getEvent());
-//        }
-//    }
-//    return *this;
-//}
-//
-//Field::Field(Field &&source) {
-//    for (int i = 0; i < height; ++i) {
-//        delete[] cells[i];
-//    }
-//    delete cells;
-//
-//    height = source.height;
-//    width = source.width;
-//    cells = source.cells;
-//}
-//
-//Field &Field::operator=(const Field &&other) {
-//    if(this != &other) {
-//        *this = other;
-//        for (int i = 0; i < height; ++i) {
-//            delete[] cells[i];
-//        }
-//        delete cells;
-//    }
-//    return *this;
-//}
+Field::Field(int height, int width) :width(width),height(height) {
+	if(height <= 0 || width <= 0) {
+		std::string s("Wrong field params ");
+		Message m(s, LogLevel::Critical);
+		this->notifyObserver(m);
+		height = 5;
+		height = 8;
+	}
+	cells = new Cell*[height];
+	for (int i = 0; i < height; ++i) {
+		cells[i] = new Cell[width];
+	}
+}
+
+Cell **Field::getField() {
+	return cells;
+}
+
+Cell &Field::getCell(int i, int j) {
+	return cells[i][j];
+}
 
 
 

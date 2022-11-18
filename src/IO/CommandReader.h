@@ -1,22 +1,26 @@
 #ifndef COMMANDREADER_H
 #define COMMANDREADER_H
 
-
+#include <iostream>
 #include <string>
 #include "Entities/Player/Player.h"
 
 class CommandReader {
 public:
-    Move& readMove(Player &player);
+	Move& readMove(Player &player);
 
-    bool readDirectionTop();
-    bool readDirectionLeft();
+	bool readDirectionTop();
+	bool readDirectionLeft();
 
-    int readFieldSize(std::string name);
+	int readFieldSize(const std::string& name);
 
-    CommandReader() = default;
+	bool isLogNeeded(const std::string& name);
+
+	LogLevel getLogLevel();
+
+	CommandReader() = default;
 private:
-    void writeMove(Move &move, int num);
+	void writeMove(Move &move, int num);
 };
 
 

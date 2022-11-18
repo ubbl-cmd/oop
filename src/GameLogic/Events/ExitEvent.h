@@ -3,7 +3,7 @@
 
 
 #include "AbstractPlayerEvent.h"
-#include "GameStatus.h"
+#include "Controller.h"
 
 class ExitEvent: public AbstractPlayerEvent {
 public:

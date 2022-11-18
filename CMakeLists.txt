@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.23)
 project(oop)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(src)
 include_directories(src/GameLogic)
+include_directories(src/GameLogic/Entities)
+include_directories(src/GameLogic/Entities/Player)
 include_directories(src/GameLogic/Events)
+include_directories(src/GameLogic/Field)
 include_directories(src/IO)
 include_directories(src/IO/Views)
 
@@ -29,4 +32,32 @@ add_executable(oop
         src/IO/CommandReader.h
         src/Controller.cpp
         src/Controller.h
-        src/Game.cpp src/GameLogic/Events/TrapEvent.cpp src/GameLogic/Events/TrapEvent.h src/GameLogic/Events/AbstractMapEvent.cpp src/GameLogic/Events/AbstractMapEvent.h src/GameLogic/Events/PassMapEvent.cpp src/GameLogic/Events/PassMapEvent.h src/GameLogic/Events/AbstractPlayerEvent.cpp src/GameLogic/Events/AbstractPlayerEvent.h src/GameLogic/Events/KeyEvent.cpp src/GameLogic/Events/KeyEvent.h src/GameLogic/Events/ExitEvent.cpp src/GameLogic/Events/ExitEvent.h src/GameLogic/GameStatus.h src/GameLogic/Events/AllKeysEvent.cpp src/GameLogic/Events/AllKeysEvent.h)
+        src/GameStatus.h
+        src/Game.cpp
+        src/GameLogic/Events/TrapEvent.cpp
+        src/GameLogic/Events/TrapEvent.h
+        src/GameLogic/Events/AbstractMapEvent.cpp
+        src/GameLogic/Events/AbstractMapEvent.h
+        src/GameLogic/Events/PassMapEvent.cpp
+        src/GameLogic/Events/PassMapEvent.h
+        src/GameLogic/Events/AbstractPlayerEvent.cpp
+        src/GameLogic/Events/AbstractPlayerEvent.h
+        src/GameLogic/Events/KeyEvent.cpp
+        src/GameLogic/Events/KeyEvent.h
+        src/GameLogic/Events/ExitEvent.cpp
+        src/GameLogic/Events/ExitEvent.h
+        src/GameLogic/Events/AllKeysEvent.cpp
+        src/GameLogic/Events/AllKeysEvent.h
+        src/Obsersers/Observer.h
+        src/Obsersers/Observable.h
+        src/Obsersers/AbstractObserver.cpp
+        src/Obsersers/AbstractObserver.h
+        src/IO/Loggers/Logger.h
+        src/Obsersers/AbstractObservable.cpp
+        src/Obsersers/AbstractObservable.h
+        src/IO/Loggers/ConsoleLogger.cpp
+        src/IO/Loggers/ConsoleLogger.h
+        src/IO/Loggers/AbstractLogger.cpp
+        src/IO/Loggers/AbstractLogger.h
+        src/IO/Loggers/FileLogger.cpp
+        src/IO/Loggers/FileLogger.h)
