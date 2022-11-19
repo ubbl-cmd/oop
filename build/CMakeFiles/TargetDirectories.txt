@@ -1,0 +1,3 @@
+/home/egunuraka/Desktop/leti/oop/oop/build/CMakeFiles/oop.dir
+/home/egunuraka/Desktop/leti/oop/oop/build/CMakeFiles/edit_cache.dir
+/home/egunuraka/Desktop/leti/oop/oop/build/CMakeFiles/rebuild_cache.dir
