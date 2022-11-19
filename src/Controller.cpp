@@ -24,9 +24,9 @@ GameStatus Controller::start() {
 
 	for (int i = 0; i < field->getHeight(); ++i) {
 		for (int j = 0; j < field->getWidth(); ++j) {
-			field->getCell(i,j).addObserver(new AbstractObserver());
+			field->getCell(i,j).addObserver(gameObserver);
 			if (field->getCell(i,j).getEvent() != nullptr) {
-				field->getCell(i,j).getEvent()->addObserver(new AbstractObserver());
+				field->getCell(i,j).getEvent()->addObserver(gameObserver);
 			}
 		}
 	}
