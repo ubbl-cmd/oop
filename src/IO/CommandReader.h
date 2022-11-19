@@ -9,8 +9,6 @@ class CommandReader {
 public:
 	Move& readMove(Player &player);
 
-	bool readDirectionTop();
-	bool readDirectionLeft();
 
 	int readFieldSize(const std::string& name);
 
@@ -20,7 +18,9 @@ public:
 
 	CommandReader() = default;
 private:
-	void writeMove(Move &move, int num);
+	void writeMove(Move &move);
+	bool readDirectionTop();
+	bool readDirectionLeft();
 };
 
 

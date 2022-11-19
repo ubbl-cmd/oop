@@ -12,27 +12,28 @@
 #include "Obsersers/AbstractObserver.h"
 #include "Loggers/ConsoleLogger.h"
 #include "Loggers/FileLogger.h"
+#include "IO/Config/ConfigReader.h"
+#include "IO/Config/FileConfigReader.h"
 #include <fstream>
 
 class Controller {
 public:
-    GameStatus start();
+	GameStatus start();
 
-    explicit Controller();
+	explicit Controller();
 
-    virtual ~Controller();
+	virtual ~Controller();
 
 private:
-    Player player = Player(0, 0, 5, 100, new Move[3]{Move(1, 1), Move(0, 1), Move(1, 0)}, 3);
-    Field *field = nullptr;
-    void freeEvents();
+	Player player = Player(0, 0, 5, 100, nullptr, 0);
+	Field *field = nullptr;
 
-    GameStatus gameStatus{InProgress};
-    std::string GameStatusString();
-    CommandReader commandReader = CommandReader();
-    FieldWriter fieldWriter = FieldWriter(player);
+	GameStatus gameStatus{InProgress};
+	std::string GameStatusString();
+	CommandReader commandReader = CommandReader();
+	FieldWriter fieldWriter = FieldWriter(player);
 
-    Field* generateField(Observer *obs);
+	Field* generateField(Observer *obs);
 };
 
 

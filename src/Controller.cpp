@@ -2,6 +2,12 @@
 
 
 GameStatus Controller::start() {
+	ConfigReader * cr = new FileConfigReader();
+	Move* playerMoves = cr->getMovesFromConfig();
+	player.setMoves(playerMoves);
+	player.setNumberOfMoves(cr->getNumberOfMoves());
+
+
 	Logger * cl;
 	Logger * fl;
 	LogLevel gameLogLevel = commandReader.getLogLevel();
@@ -10,7 +16,7 @@ GameStatus Controller::start() {
 		cl = new ConsoleLogger(gameLogLevel);
 		gameObserver->addLogger(cl);
 	}
-	// std::ofstream filelog("ZALUPA");
+
 	if (commandReader.isLogNeeded("file")) {
 		fl = new FileLogger(gameLogLevel);
 		gameObserver->addLogger(fl);
@@ -41,9 +47,7 @@ GameStatus Controller::start() {
 		fieldWriter.PrintField(*field);
 
 		Move &move = commandReader.readMove(player);
-		bool top = commandReader.readDirectionTop();
-		bool left = commandReader.readDirectionLeft();
-		field->makeMove(move, player, top, left, true);
+		field->makeMove(move, player, true);
 		if (player.getHealth() <= 0) {
 			gameStatus = Lose;
 		}
@@ -51,7 +55,6 @@ GameStatus Controller::start() {
 	std::string msg = "Game state is " + GameStatusString();
 	Message m(msg, LogLevel::GameState);
 	gameObserver->handleEvent(m);
-	if (fl != nullptr) delete fl;
 	return gameStatus;
 }
 
@@ -83,6 +86,5 @@ Controller::Controller() {
 }
 
 Controller::~Controller() {
-    delete player.getMoves();
     delete field;
 }

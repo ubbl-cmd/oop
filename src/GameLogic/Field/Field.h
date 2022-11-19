@@ -15,7 +15,7 @@ public:
 
 	Cell** getField();
 
-	void makeMove(Move &move, Player &entity, bool top, bool left, bool isEventTrigger);
+	void makeMove(Move &move, Player &entity, bool isEventTrigger);
 
 	explicit Field(int height = 5, int width = 8);
 	~Field() {
@@ -40,7 +40,7 @@ private:
 	int width;
 	Cell **cells;
 
-	bool isMoveValid(Move &move, Player &entity, bool top, bool left);
+	bool isMoveValid(Move &move, Player &entity);
 };
 
 

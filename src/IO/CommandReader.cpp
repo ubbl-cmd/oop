@@ -1,18 +1,26 @@
 #include "CommandReader.h"
 
-void CommandReader::writeMove(Move &move, int num) {
-	std::cout << num << ". " << move.getCellsVertical() << "вертикальный сдвиг, " << move.getCellsHorizontal() << "горизонтальный сдвиг" << "\n";
+void CommandReader::writeMove(Move &move) {
+	std::cout << move.getBtn() << ". " << move.getCellsVertical() << "вертикальный сдвиг, " << move.getCellsHorizontal() << "горизонтальный сдвиг" << ", вверх" << move.getTop() << ", влево " << move.getLeft() << "\n";
 }
 
 Move& CommandReader::readMove(Player &player) {
 	Move* moves = player.getMoves();
 	for (int i = 0; i < player.getNumberOfMoves(); ++i) {
-		writeMove(moves[i], i);
+		writeMove(moves[i]);
 	}
-	int move_number;
-	std::cout << "Введите нужный ход" << "\n";
-	std::cin >> move_number;
-	return moves[move_number];
+	while (1) {
+		std::string moveBtn;
+		std::cout << "Введите нужный ход" << "\n";
+		std::cin >> moveBtn;
+		for (int i = 0; i < player.getNumberOfMoves(); i++) {
+			if (moves[i].getBtn() == moveBtn) {
+				return moves[i];
+			}
+		}
+		std::cout << "Нет такого хода" << "\n";
+	}
+	return moves[0];
 }
 
 bool CommandReader::readDirectionTop() {

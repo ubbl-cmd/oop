@@ -18,6 +18,7 @@ Move* Player::getMoves() const {
 }
 
 void Player::setMoves(Move *new_moves) {
+    if (moves != nullptr)delete[] moves;
     Player::moves = new_moves;
 }
 

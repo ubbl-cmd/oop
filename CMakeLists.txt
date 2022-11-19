@@ -30,8 +30,6 @@ add_executable(oop
         src/IO/FieldWriter.h
         src/IO/CommandReader.cpp
         src/IO/CommandReader.h
-        src/Controller.cpp
-        src/Controller.h
         src/GameStatus.h
         src/Game.cpp
         src/GameLogic/Events/TrapEvent.cpp
@@ -60,4 +58,13 @@ add_executable(oop
         src/IO/Loggers/AbstractLogger.cpp
         src/IO/Loggers/AbstractLogger.h
         src/IO/Loggers/FileLogger.cpp
-        src/IO/Loggers/FileLogger.h)
+        src/IO/Loggers/FileLogger.h
+
+        src/IO/Config/ConfigReader.h
+        src/IO/Config/ConfigReader.cpp
+        src/IO/Config/FileConfigReader.h
+        src/IO/Config/FileConfigReader.cpp
+
+        src/Controller.cpp
+        src/Controller.h
+        )

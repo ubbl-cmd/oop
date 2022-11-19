@@ -9,11 +9,11 @@ int Field::getWidth() const {
 	return width;
 }
 
-void Field::makeMove(Move &move, Player &entity, bool top, bool left, bool isEventTrigger) {
-	int new_vertical_position = (entity.getVerticalPosition() - move.getCellsVertical() * top + move.getCellsVertical() * !top + height) % height;
-	int new_horizontal_position = (entity.getHorizontalPosition() - move.getCellsHorizontal() * left + move.getCellsHorizontal() * !left + width) % width;
+void Field::makeMove(Move &move, Player &entity, bool isEventTrigger) {
+	int new_vertical_position = (entity.getVerticalPosition() - move.getCellsVertical() * move.getTop() + move.getCellsVertical() * !move.getTop() + height) % height;
+	int new_horizontal_position = (entity.getHorizontalPosition() - move.getCellsHorizontal() * move.getLeft() + move.getCellsHorizontal() * !move.getLeft() + width) % width;
 
-	if (isMoveValid(move, entity, top, left)) {
+	if (isMoveValid(move, entity)) {
 		if (isEventTrigger and cells[new_vertical_position][new_horizontal_position].getEvent() != nullptr) {
 			cells[new_vertical_position][new_horizontal_position].startEvent();
 		}
@@ -26,9 +26,9 @@ void Field::makeMove(Move &move, Player &entity, bool top, bool left, bool isEve
 	}
 }
 
-bool Field::isMoveValid(Move &move, Player &entity, bool top, bool left) {
-	int new_vertical_position = (entity.getVerticalPosition() + move.getCellsVertical() * (-1 * top) + height) % height;
-	int new_horizontal_position = (entity.getHorizontalPosition() + move.getCellsHorizontal() * (-1 * left) + width) % width;
+bool Field::isMoveValid(Move &move, Player &entity) {
+	int new_vertical_position = (entity.getVerticalPosition() + move.getCellsVertical() * (-1 * move.getTop()) + height) % height;
+	int new_horizontal_position = (entity.getHorizontalPosition() + move.getCellsHorizontal() * (-1 * move.getLeft()) + width) % width;
 	return cells[new_vertical_position][new_horizontal_position].isPassable();
 }
 
