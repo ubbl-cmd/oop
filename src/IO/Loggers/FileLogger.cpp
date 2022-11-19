@@ -2,7 +2,7 @@
 
 
 void FileLogger::_log() {
-	fout << *this << "\n";
+	fout << *this << std::endl;
 }
 
 FileLogger::FileLogger(LogLevel logLevel):AbstractLogger(logLevel) {

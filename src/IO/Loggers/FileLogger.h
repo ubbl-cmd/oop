@@ -6,9 +6,10 @@
 class FileLogger: public AbstractLogger {
 protected:
 public:
-	FileLogger(LogLevel logLevel/*, std::ofstream& ofs*/);
+	FileLogger(LogLevel logLevel);
 
 	~FileLogger() override {
+		fout.flush();
 		fout.close();
 	};
 

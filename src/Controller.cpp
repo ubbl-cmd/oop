@@ -2,14 +2,18 @@
 
 
 GameStatus Controller::start() {
+	Logger * cl;
+	Logger * fl;
 	LogLevel gameLogLevel = commandReader.getLogLevel();
 	Observer *gameObserver = new AbstractObserver();
 	if (commandReader.isLogNeeded("console")) {
-		gameObserver->addLogger(new ConsoleLogger(gameLogLevel));
+		cl = new ConsoleLogger(gameLogLevel);
+		gameObserver->addLogger(cl);
 	}
 	// std::ofstream filelog("ZALUPA");
 	if (commandReader.isLogNeeded("file")) {
-		gameObserver->addLogger(new FileLogger(gameLogLevel/*, filelog*/));
+		fl = new FileLogger(gameLogLevel);
+		gameObserver->addLogger(fl);
 	}
 	player.addObserver(gameObserver);
 
@@ -47,6 +51,7 @@ GameStatus Controller::start() {
 	std::string msg = "Game state is " + GameStatusString();
 	Message m(msg, LogLevel::GameState);
 	gameObserver->handleEvent(m);
+	if (fl != nullptr) delete fl;
 	return gameStatus;
 }
 
