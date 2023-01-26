@@ -4,17 +4,20 @@
 #include "GameStatus.h"
 #include "CommandReader.h"
 #include "FieldWriter.h"
-#include "ExitEvent.h"
-#include "KeyEvent.h"
-#include "PassMapEvent.h"
-#include "AllKeysEvent.h"
-#include "TrapEvent.h"
-#include "Obsersers/AbstractObserver.h"
-#include "Loggers/ConsoleLogger.h"
-#include "Loggers/FileLogger.h"
-#include "IO/Config/ConfigReader.h"
-#include "IO/Config/FileConfigReader.h"
+#include "AbstractObserver.h"
+#include "ConsoleLogger.h"
+#include "FileLogger.h"
+#include "ConfigReader.h"
+#include "FileConfigReader.h"
+#include "FieldGenerator.h"
 #include <fstream>
+
+#include "ExitEventRule.h"
+#include "KeyEventRule.h"
+#include "AllKeysEventRule.h"
+#include "PassMapEventRule.h"
+#include "TrapEventRule.h"
+#include "DiagonalWallRule.h"
 
 class Controller {
 public:

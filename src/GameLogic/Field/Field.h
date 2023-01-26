@@ -3,7 +3,7 @@
 
 #include "Cell.h"
 #include "Move.h"
-#include "Entities/Player/Player.h"
+#include "Player.h"
 
 class Field: public AbstractObservable {
 public:

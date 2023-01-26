@@ -2,7 +2,7 @@
 #define CELL_H
 
 #include "Events/Event.h"
-#include "Obsersers/AbstractObservable.h"
+#include "AbstractObservable.h"
 
 class Cell: public AbstractObservable {
 public:
