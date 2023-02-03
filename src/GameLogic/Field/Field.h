@@ -11,9 +11,21 @@ public:
 
 	int getWidth() const;
 
+	void setHeight(int a) {
+		height = a;
+	}
+
+	void setWidth(int a) {
+		width = a;
+	}
+
 	Cell& getCell(int i, int j);
 
 	Cell** getField();
+
+	void setField(Cell** cells) {
+		this->cells = cells;
+	}
 
 	void makeMove(Move &move, Player &entity, bool isEventTrigger);
 
@@ -24,6 +36,7 @@ public:
 		}
 		delete cells;
 	}
+
 	virtual void addObserver(Observer* observer) override {
 		AbstractObservable::addObserver(observer);
 		for(int i = 0; i < height; ++i) {

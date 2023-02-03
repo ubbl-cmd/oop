@@ -9,6 +9,7 @@ class CommandReader {
 public:
 	Move& readMove(Player &player);
 
+	int readLevel(int n);
 
 	int readFieldSize(const std::string& name);
 

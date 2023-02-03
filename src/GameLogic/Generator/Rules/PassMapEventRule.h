@@ -10,6 +10,7 @@ public:
 		Event *E = new PassMapEvent(field);
 
 		field->getCell(a, b).setEvent(E);
+		field->getCell(a, b).setPassable(1);
 	}
 };
 

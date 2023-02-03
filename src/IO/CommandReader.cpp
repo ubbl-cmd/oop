@@ -1,5 +1,14 @@
 #include "CommandReader.h"
 
+int CommandReader::readLevel(int n) {
+	int level = 0;
+	while (!(0 < level && level <= n)) {
+		std::cout << "Введите сложность от 1 до " << n << ": ";
+		std::cin >> level;
+	}
+	return level;
+}
+
 void CommandReader::writeMove(Move &move) {
 	std::cout << move.getBtn() << ". " << move.getCellsVertical() << "вертикальный сдвиг, " << move.getCellsHorizontal() << "горизонтальный сдвиг" << ", вверх" << move.getTop() << ", влево " << move.getLeft() << "\n";
 }

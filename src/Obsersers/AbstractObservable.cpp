@@ -1,5 +1,5 @@
 #include <algorithm>
-
+#include <iostream>
 #include "AbstractObservable.h"
 
 
@@ -15,6 +15,7 @@ void AbstractObservable::removeObserver(Observer *observer) {
 }
 
 void AbstractObservable::notifyObserver(Message& message) {
+    //std::cout<<"here"<<std::endl;
     for (auto & observer : observers) {
         observer->handleEvent(message);
     }

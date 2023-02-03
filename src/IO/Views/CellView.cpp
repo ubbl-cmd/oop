@@ -1,7 +1,3 @@
-//
-// Created by egunuraka on 9/24/22.
-//
-
 #include "CellView.h"
 
 

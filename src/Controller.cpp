@@ -7,11 +7,13 @@ GameStatus Controller::start() {
 	player.setMoves(playerMoves);
 	player.setNumberOfMoves(cr->getNumberOfMoves());
 
-
 	Logger * cl;
 	Logger * fl;
-	LogLevel gameLogLevel = commandReader.getLogLevel();
+
+
 	Observer *gameObserver = new AbstractObserver();
+
+	LogLevel gameLogLevel = commandReader.getLogLevel();
 	if (commandReader.isLogNeeded("console")) {
 		cl = new ConsoleLogger(gameLogLevel);
 		gameObserver->addLogger(cl);
@@ -21,16 +23,10 @@ GameStatus Controller::start() {
 		fl = new FileLogger(gameLogLevel);
 		gameObserver->addLogger(fl);
 	}
+
 	player.addObserver(gameObserver);
 
 	field = generateField(gameObserver);
-
-	// field->getCell(field->getHeight()-1, field->getWidth()-1).setPassable(false);
-	// field->getCell(field->getHeight()-1, field->getWidth()-1).setEvent(new ExitEvent(player, gameStatus));
-	// field->getCell(1, 1).setEvent(new KeyEvent(player));
-	// field->getCell(0, 1).setEvent(new PassMapEvent(field));
-	// field->getCell(1, 0).setEvent(new AllKeysEvent(field, player));
-	// field->getCell(2, 2).setEvent(new TrapEvent(player, 5));
 
 	for (int i = 0; i < field->getHeight(); ++i) {
 		for (int j = 0; j < field->getWidth(); ++j) {
@@ -40,6 +36,9 @@ GameStatus Controller::start() {
 			}
 		}
 	}
+
+	// SaveReader sw("qq");
+
 	while (gameStatus == InProgress) {
 		std::string msg = "Game state is " + GameStatusString();
 		Message m(msg, LogLevel::GameState);
@@ -48,6 +47,7 @@ GameStatus Controller::start() {
 
 		Move &move = commandReader.readMove(player);
 		field->makeMove(move, player, true);
+
 		if (player.getHealth() <= 0) {
 			gameStatus = Lose;
 		}
@@ -64,23 +64,16 @@ std::string Controller::GameStatusString() {
 }
 
 Field* Controller::generateField(Observer *obs) {
-	FieldGenerator<ExitEventRule<2>, KeyEventRule<1,1>, AllKeysEventRule<1,0>, PassMapEventRule<0,1>, TrapEventRule<2,2,6>, DiagonalWallRule<2>> fg;
-	Field *foo_field = fg.generate(player, gameStatus);
-    // int height = commandReader.readFieldSize("высоту");
-    // int width = commandReader.readFieldSize("ширину");
-    // Field * foo_field;
-    // if (height <= 0 || width <= 0) {
-    //     foo_field = new Field();
-    // } else {
-    //     foo_field = new Field(height, width);
-    // }
-    // foo_field->addObserver(obs);
-    // if (height <= 0 || width <= 0) {
-    //     std::string s("Field size < 0");
-    //     Message m(s, LogLevel::Critical);
-    //     foo_field->notifyObserver(m);
-    // }
-    return foo_field;
+	int level = commandReader.readLevel(2);
+	Field *foo_field;
+	if (level == 1) {
+		FieldGenerator<ExitEventRule<2>, KeyEventRule<1,1>, AllKeysEventRule<1,0>, PassMapEventRule<0,1>, TrapEventRule<2,2,6>, DiagonalWallRule<1,2,1>> fg;
+		foo_field = fg.generate(4,4,player, gameStatus);
+	} else {
+		FieldGenerator<ExitEventRule<0>, KeyEventRule<1,1>,DiagonalWallRule<1,2,0>, PassMapEventRule<1,0>, TrapEventRule<2,2,2>, TrapEventRule<0,1,4>> fg;
+		foo_field = fg.generate(5,5,player, gameStatus);
+	}
+	return foo_field;
 }
 
 

@@ -38,7 +38,7 @@ Field::Field(int height, int width) :width(width),height(height) {
 		Message m(s, LogLevel::Critical);
 		this->notifyObserver(m);
 		height = 5;
-		height = 8;
+		height = 5;
 	}
 	cells = new Cell*[height];
 	for (int i = 0; i < height; ++i) {

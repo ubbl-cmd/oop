@@ -1,6 +1,10 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include "Save.h"
+#include "SaveWriter.h"
+#include "SaveReader.h"
+
 #include "GameStatus.h"
 #include "CommandReader.h"
 #include "FieldWriter.h"
