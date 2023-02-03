@@ -6,11 +6,11 @@
 
 class KeyEvent: public AbstractPlayerEvent {
 public:
-    explicit KeyEvent(Player &player);
+	explicit KeyEvent(Player &player);
 
-    ~KeyEvent() override;
+	~KeyEvent() override;
 
-    void playerChange(Player &player) override;
+	void playerChange(Player &player) override;
 };
 
 

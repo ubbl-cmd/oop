@@ -8,15 +8,15 @@
 
 class AbstractPlayerEvent: public Event {
 public:
-    explicit AbstractPlayerEvent(Player &player);
-    virtual ~AbstractPlayerEvent();
+	explicit AbstractPlayerEvent(Player &player);
+	virtual ~AbstractPlayerEvent();
 
-    void act() override {
-        playerChange(player);
-    };
-    virtual void playerChange(Player& player) = 0;
+	void act() override {
+		playerChange(player);
+	};
+	virtual void playerChange(Player& player) = 0;
 private:
-    Player& player;
+	Player& player;
 };
 
 

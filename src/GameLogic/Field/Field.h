@@ -21,9 +21,9 @@ public:
 
 	Cell& getCell(int i, int j);
 
-	Cell** getField();
+	Cell** getCells();
 
-	void setField(Cell** cells) {
+	void setCells(Cell** cells) {
 		this->cells = cells;
 	}
 

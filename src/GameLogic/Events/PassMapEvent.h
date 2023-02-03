@@ -6,11 +6,11 @@
 
 class PassMapEvent: public AbstractMapEvent {
 public:
-    explicit PassMapEvent(Field *field);
+	explicit PassMapEvent(Field *field);
 
-    ~PassMapEvent() override;
+	~PassMapEvent() override;
 
-    void doForEachCell(Cell &cell) override;
+	void doForEachCell(Cell &cell) override;
 };
 
 

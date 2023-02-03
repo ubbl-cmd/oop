@@ -44,5 +44,20 @@ std::string Save::getStateString() {
 		}
 		result += "\n";
 	}
-	return result;
+	for (int i = 0; i < field->getHeight(); i++) {
+		for (int j = 0; j < field->getWidth(); j++) {
+			if (getType(field->getCell(i,j).getEvent()) == 2) {
+				result += std::to_string(dynamic_cast<TrapEvent *>(field->getCell(i,j).getEvent())->getHealthChange()) + " ";
+			} else {
+				result += std::to_string(0) + " ";
+			}
+		}
+		result += "\n";
+	}
+	int x = result[0];
+	for (int i = 1; i < result.length(); i++) {
+		x ^= result[i];
+	}
+	std::cout << x << std::endl;
+	return result + std::to_string(x);
 }

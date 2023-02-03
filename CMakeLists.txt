@@ -17,7 +17,7 @@ include_directories(src/IO/Views)
 include_directories(src/IO/Config/)
 include_directories(src/IO/Loggers/)
 include_directories(src/Saver/)
-include_directories(src/Saver/Exeption)
+include_directories(src/Saver/Exception)
 
 
 
@@ -49,5 +49,4 @@ add_executable(oop
         src/Saver/Save.cpp
         src/Saver/SaveWriter.cpp
         src/Saver/SaveReader.cpp
-        src/Saver/Exeption/My_Exeption.h
         )

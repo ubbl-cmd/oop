@@ -8,14 +8,20 @@
 class TrapEvent: public AbstractPlayerEvent {
 public:
 
-    explicit TrapEvent(Player &player, int healthChange);
+	explicit TrapEvent(Player &player, int healthChange);
 
-    ~TrapEvent() override;
+	~TrapEvent() override;
 
-    void playerChange(Player &player) override;
+	void playerChange(Player &player) override;
 
+	int getHealthChange() const{
+		return healthChange;
+	};
+	void setHealthChange(int newHealthChange) {
+		healthChange = newHealthChange;
+	};
 private:
-    int healthChange;
+	int healthChange;
 };
 
 

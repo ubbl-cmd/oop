@@ -7,14 +7,14 @@
 
 class AbstractMapEvent: public Event {
 public:
-    explicit AbstractMapEvent(Field *field);
+	explicit AbstractMapEvent(Field *field);
 
-    virtual ~AbstractMapEvent();
+	virtual ~AbstractMapEvent();
 
-    void act() override;
-    virtual void doForEachCell(Cell &cell) = 0;
+	void act() override;
+	virtual void doForEachCell(Cell &cell) = 0;
 private:
-    Field * field;
+	Field * field;
 };
 
 

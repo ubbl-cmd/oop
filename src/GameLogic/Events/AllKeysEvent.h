@@ -6,13 +6,13 @@
 
 class AllKeysEvent: public AbstractMapEvent {
 public:
-    AllKeysEvent(Field *field, Player &player);
+	AllKeysEvent(Field *field, Player &player);
 
-    ~AllKeysEvent() override;
+	~AllKeysEvent() override;
 
-    void doForEachCell(Cell &cell) override;
+	void doForEachCell(Cell &cell) override;
 private:
-    Player &player;
+	Player &player;
 };
 
 

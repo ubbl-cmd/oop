@@ -23,6 +23,9 @@
 #include "TrapEventRule.h"
 #include "DiagonalWallRule.h"
 
+#include "FileException.h"
+#include "UnrealSaveException.h"
+
 class Controller {
 public:
 	GameStatus start();
@@ -41,6 +44,8 @@ private:
 	FieldWriter fieldWriter = FieldWriter(player);
 
 	Field* generateField(Observer *obs);
+	void SaveGame(std::string fileName);
+	void LoadGame(std::string fileName);
 };
 
 

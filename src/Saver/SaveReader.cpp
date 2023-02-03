@@ -1,49 +1,95 @@
 #include "SaveReader.h"
-#include "My_Exeption.h"
+
 Event* getEvent(int e, Field * field, Player & player, GameStatus & gs) {
-	if (e == 0) return nullptr;
-	if (e == 1) return new ExitEvent(player, gs);
-	if (e == 2) return new TrapEvent(player, 5);
-	if (e == 3) return new PassMapEvent(field);
-	if (e == 4) return new KeyEvent(player);
-	if (e == 5) return new AllKeysEvent(field, player);
-	return nullptr;
+	Event *event = nullptr;
+	if (e == 1) {
+		event = new ExitEvent(player, gs);
+	} else if (e == 2) {
+		event = new TrapEvent(player, 5);
+	} else if (e == 3) {
+		event = new PassMapEvent(field);
+	} else if (e == 4) {
+		event = new KeyEvent(player);
+	} else if (e == 5) {
+		event = new AllKeysEvent(field, player);
+	}
+	return event;
 }
 
-void SaveReader::read(Field * field, Player & player, GameStatus & gs) {
+Field* SaveReader::read(Field * field, Player & player, GameStatus & gs) {
 	GameStatus oldGs = gs;
-	gs = GameStatus::InProgress;
 	int verticalPosition;
 	int horizontalPosition;
 	int initial_health;
 	int initial_luck;
 	bool hasKey;
-	if(!ifs.is_open()) throw (My_Exeption(1));
 
 	ifs >> verticalPosition >> horizontalPosition >> initial_health >> initial_luck >> hasKey;
-// 	PROVERKI
-	Player newPlayer(verticalPosition, horizontalPosition, initial_health, initial_luck, player.getMoves(), player.getNumberOfMoves(), hasKey);
+	if (initial_health <= 0) {
+		throw(UnrealSaveException("expected: initial_health > 0, got " + std::to_string(initial_health)));
+	}
+	if (initial_luck <= 0) {
+		throw(UnrealSaveException("expected: initial_luck > 0, got " + std::to_string(initial_luck)));
+	}
 
 	int height, width;
 	ifs >> height >> width;
+	if (height < 2) {
+		throw(UnrealSaveException("expected: height > 0, got " + std::to_string(height)));
+	}
+	if (width < 2) {
+		throw(UnrealSaveException("expected: width > 0, got " + std::to_string(width)));
+	}
+
+	if (verticalPosition < 0 || verticalPosition >= height) {
+		throw(UnrealSaveException("expected: |verticalPosition| < height, got " + std::to_string(verticalPosition)));
+	}
+	if (horizontalPosition < 0 || horizontalPosition >= width) {
+		throw(UnrealSaveException("expected: |horizontalPosition| < height, got " + std::to_string(horizontalPosition)));
+	}
 // 	PROVERKI
 	Field *newField = new Field(height, width);
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-			int isPassable = 0;
+			int isPassable;
 			ifs >> isPassable;
+			if (ifs.eof()) {
+				throw UnrealSaveException("Unexpected end of file");
+			}
 			newField->getCell(i,j).setPassable(isPassable);
 		}
 	}
-
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			int e;
 			ifs >> e;
-			newField->getCell(i,j).setEvent(getEvent(e, newField, newPlayer, gs));
+			if (ifs.eof()) {
+				throw UnrealSaveException("Unexpected end of file");
+			}
+			Event * event = getEvent(e, newField, player, gs);
+			if (event != nullptr) {
+				newField->getCell(i,j).setEvent(event);
+			}
 		}
 	}
-// 	PROVERKI
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			int e;
+			ifs >> e;
+			if (ifs.eof()) {
+				throw UnrealSaveException("Unexpected end of file");
+			}
+			if (e) {
+				Event * event = newField->getCell(i,j).getEvent();
+				if (event != nullptr) {
+					if(event == dynamic_cast<TrapEvent *>(event)) {
+						dynamic_cast<TrapEvent *>(event)->setHealthChange(e);
+					}
+				}
+			}
+		}
+	}
+
 
 	player.setVerticalPosition(verticalPosition);
 	player.setHorizontalPosition(horizontalPosition);
@@ -51,7 +97,5 @@ void SaveReader::read(Field * field, Player & player, GameStatus & gs) {
 	player.setLuck(initial_luck);
 	player.setHasKey(hasKey);
 
-	field->setWidth(newField->getWidth());
-	field->setHeight(newField->getHeight());
-	field = newField;
+	return newField;
 }

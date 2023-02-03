@@ -7,14 +7,14 @@
 
 class ExitEvent: public AbstractPlayerEvent {
 public:
-    ~ExitEvent() override;
+	~ExitEvent() override;
 
-    void playerChange(Player &player) override;
+	void playerChange(Player &player) override;
 
-    ExitEvent(Player &player, GameStatus &gameStatus);
+	ExitEvent(Player &player, GameStatus &gameStatus);
 
 private:
-    GameStatus &gameStatus;
+	GameStatus &gameStatus;
 };
 
 

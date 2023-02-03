@@ -15,6 +15,10 @@ public:
 
 	bool isLogNeeded(const std::string& name);
 
+	int readSaveOrLoadCommand(std::string command);
+
+	std::string readFileName();
+
 	LogLevel getLogLevel();
 
 	CommandReader() = default;

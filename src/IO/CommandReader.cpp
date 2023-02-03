@@ -1,5 +1,19 @@
 #include "CommandReader.h"
 
+int CommandReader::readSaveOrLoadCommand(std::string command) {
+	int result;
+	std::cout << "Do you want to " << command << " game? [1=y]/[0=n]";
+	std::cin >> result;
+	return result;
+}
+
+std::string CommandReader::readFileName() {
+	std::string fileName;
+	std::cout << "Enter path to save\n->";
+	std::cin >> fileName;
+	return fileName;
+}
+
 int CommandReader::readLevel(int n) {
 	int level = 0;
 	while (!(0 < level && level <= n)) {

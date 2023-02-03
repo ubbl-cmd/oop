@@ -46,7 +46,7 @@ Field::Field(int height, int width) :width(width),height(height) {
 	}
 }
 
-Cell **Field::getField() {
+Cell **Field::getCells() {
 	return cells;
 }
 
